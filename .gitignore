@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+.venv
+venv/
+env/
+ENV/
+
+# Data files
+*.nc
+*.csv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Model files
+*.joblib
+
+# Generated images
+*.png
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Other
+*.bak
+*.swp
+*.swo

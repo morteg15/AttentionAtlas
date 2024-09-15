@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AquaAlert Demo</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section text-white text-center py-5" style="background-image: url('images/hero-image.jpg'); background-size: cover; background-position: center;">
+        <div class="container">
+            <!-- <img src="images/logo.png" alt="AquaAlert Logo" class="mb-4" style="width: 200px;"> -->
+            <h1 class="display-4">Welcome to AquaAlert</h1>
+            <p class="lead">Real-Time Harmful Algae Monitoring for Aquaculture Professionals</p>
+            <a href="#dashboard" class="btn btn-primary btn-lg mt-3">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="images/logo.png" alt="AquaAlert Logo" style="width: 40px; height: 40px;">
+                AquaAlert
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#map-section">Map</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#algae-growth">Growth</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#analytics">Analytics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#support">Support</a>
+                    </li>
+                </ul>
+                <button class="btn btn-outline-light ms-3" onclick="openSettings()">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Alert Banner -->
+    <div id="alert-banner" class="alert alert-warning alert-dismissible fade show text-center m-0" role="alert">
+        <strong>⚠️ Alert!</strong> High levels of harmful algae detected near your site. <a href="#map-section" class="alert-link">View Details</a>.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="closeAlert()"></button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+
+        <!-- Dashboard Section -->
+        <section id="dashboard">
+            <div class="row align-items-center mb-5">
+                <div class="col-md-8">
+                    <h1 class="mb-4">Hello, Alex</h1>
+                    <p class="lead">Stay informed about the latest algae levels to protect your aquaculture operations.</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="images/operator-avatar.png" alt="Operator Avatar" class="img-fluid rounded-circle" width="150">
+                </div>
+            </div>
+            <div class="row">
+                <!-- Current Algae Level Card -->
+                <div class="col-md-6 mb-4">
+                    <div class="card text-center shadow">
+                        <div class="card-header bg-danger text-white">
+                            Current Algae Level
+                        </div>
+                        <div class="card-body">
+                            <h2 id="algae-level" class="display-4 text-danger">High</h2>
+                            <p class="card-text">Immediate action recommended.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Next 24 Hours Prediction Card -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow">
+                        <div class="card-header bg-info text-white">
+                            Next 24 Hours Prediction
+                        </div>
+                        <div class="card-body">
+                            <canvas id="prediction-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section id="map-section" class="my-5">
+            <h2 class="mb-4 text-center">Interactive Algae Bloom Map</h2>
+            <div class="card shadow">
+                <div class="card-body p-0">
+                    <!-- Map Integration -->
+                    <div id="map" style="height: 500px;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Algae Growth and Movement Section -->
+        <section id="algae-growth" class="my-5">
+            <h2 class="mb-4 text-center">Algae Growth and Predicted Movement</h2>
+            <div class="row">
+                <!-- Algae Growth Rate Chart -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow">
+                        <div class="card-header bg-success text-white">
+                            Algae Growth Rate
+                        </div>
+                        <div class="card-body">
+                            <canvas id="growth-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- Predicted Movement Map -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow">
+                        <div class="card-header bg-info text-white">
+                            Predicted Movement
+                        </div>
+                        <div class="card-body">
+                            <div id="movement-map" style="height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="my-5">
+            <h2 class="mb-4 text-center">Trend Analysis</h2>
+            <div class="card shadow">
+                <div class="card-body">
+                    <canvas id="trend-chart"></canvas>
+                </div>
+            </div>
+            <!-- Algae Arrival Prediction -->
+            <div class="alert alert-danger text-center mt-5" role="alert">
+                <strong>Prediction:</strong> Harmful algae are projected to reach your fish farm in approximately <strong>4 days</strong>.
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support" class="my-5 text-center">
+            <h2 class="mb-4">Support and Resources</h2>
+            <p>Access tutorials, guides, and get in touch with our support team.</p>
+            <div class="row justify-content-center">
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 shadow">
+                        <img src="images/tutorials.jpg" class="card-img-top" alt="Tutorials">
+                        <div class="card-body">
+                            <h5 class="card-title">Tutorials</h5>
+                            <p class="card-text">Learn how to make the most of AquaAlert.</p>
+                            <a href="#" class="btn btn-primary">View Tutorials</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 shadow">
+                        <img src="images/guides.jpg" class="card-img-top" alt="Guides">
+                        <div class="card-body">
+                            <h5 class="card-title">Guides</h5>
+                            <p class="card-text">Detailed documentation and best practices.</p>
+                            <a href="#" class="btn btn-primary">Read Guides</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 shadow">
+                        <img src="images/support.jpg" class="card-img-top" alt="Support">
+                        <div class="card-body">
+                            <h5 class="card-title">Contact Support</h5>
+                            <p class="card-text">We're here to help you 24/7.</p>
+                            <a href="#" class="btn btn-primary" onclick="openSupport()"><i class="fas fa-headset"></i> Get Support</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        &copy; 2024 AquaAlert. All rights reserved.
+    </footer>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal fade" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-cog"></i> Settings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeSettings()"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="alert-threshold" class="form-label">Alert Threshold:</label>
+                            <input type="range" class="form-range" id="alert-threshold" name="alert-threshold" min="0" max="100" value="50" oninput="updateThresholdLabel(this.value)">
+                            <span id="threshold-label">50</span>%
+                        </div>
+                        <div class="mb-3">
+                            <label for="language-select" class="form-label">Language:</label>
+                            <select id="language-select" name="language-select" class="form-select">
+                                <option value="en">English</option>
+                                <option value="no">Norsk</option>
+                                <!-- Add more languages as needed -->
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet.js for Interactive Maps -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <!-- Bootstrap Bundle JS (includes Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
