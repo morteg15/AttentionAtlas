@@ -15,6 +15,10 @@ We have also included a Demo web app found in the demo_web_app folder this can b
 
 See `requirements.txt` for a list of required Python packages.
 
+dataset needs to be downloaded
+https://data.marine.copernicus.eu/product/GLOBAL_MULTIYEAR_BGC_001_029/description
+and	https://coastalscience.noaa.gov/science-areas/habs/hab-forecasts/
+
 ## Usage
 
 1. Ensure you have the required data files:
