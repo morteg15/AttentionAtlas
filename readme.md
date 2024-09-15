@@ -2,6 +2,8 @@
 
 This project uses machine learning to predict harmful algal blooms based on oceanographic data. It includes functionality for data loading, model training, and visualization of predictions.
 
+We have also included a Demo web app found in the demo_web_app folder this can be runn by opening the index.html file to show how a future application could look like
+
 ## Features
 
 - Loads and processes NetCDF oceanographic data and CSV event data
@@ -16,15 +18,16 @@ See `requirements.txt` for a list of required Python packages.
 ## Usage
 
 1. Ensure you have the required data files:
+
    - NetCDF file with oceanographic data
    - CSV file with harmful algal bloom event data
-
 2. Install the required packages:
+
    ```
    pip install -r requirements.txt
    ```
-
 3. Run the main script:
+
    ```
    python algae_prediction_visualizer.py
    ```
@@ -41,6 +44,7 @@ See `requirements.txt` for a list of required Python packages.
 ## Output
 
 The script generates:
+
 - A trained model file (`algae_model.joblib`)
 - A visualization of a sample prediction from 2019 (`sample_prediction_YYYYMMDD.png`)
 
